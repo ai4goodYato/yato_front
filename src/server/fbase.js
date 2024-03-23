@@ -1,6 +1,7 @@
 import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useNavigate } from "react-router-dom";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -47,6 +48,7 @@ export const signInWithEmail = (email, password) => {
       // 로그인 성공 시 추가적인 작업 수행
       const user = userCredential.user;
       console.log("로그인 성공:", user.uid);
+      useNavigate('/')
     })
     .catch((error) => {
       // 로그인 실패 시 처리

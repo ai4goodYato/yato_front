@@ -1,5 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+
+export const firebaseConfig = {
+    apiKey: "AIzaSyBGCUFHlGXGyKUe5Th_yQdxDCgvNjEEFBg",
+    authDomain: "yato-f7402.firebaseapp.com",
+    projectId: "yato-f7402",
+    storageBucket: "yato-f7402.appspot.com",
+    messagingSenderId: "804087797017",
+    appId: "1:804087797017:web:801e979dacda8e434ee188",
+    measurementId: "G-DB5E2P3TS5"
+  };
 
 function SignupPage() {
     const [email, setEmail] = useState('');
@@ -37,6 +49,24 @@ function SignupPage() {
                 setLoading(false);
                 console.error('회원가입 요청 중 오류 발생:', error);
                 setError('회원가입 요청 중 오류가 발생했습니다.');
+            });
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app); //변경
+
+    const signUpWithEmail = (email, password) => {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // 회원가입 성공 시 추가적인 작업 수행
+                const user = userCredential.user;
+                console.log("회원가입 성공:", user.uid);
+            })
+            .catch((error) => {
+                // 회원가입 실패 시 처리
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.error("회원가입 실패:", errorMessage);
             });
     };
 
@@ -86,7 +116,7 @@ function SignupPage() {
                         placeholder='비밀번호 확인'
                     />
                 </div>
-                <button className="login-btn" type="button" onClick={handleSignup} disabled={loading}>
+                <button className="login-btn" type="button" onClick={signUpWithEmail} disabled={loading}>
                     {loading ? '가입 중...' : '가입'}
                 </button>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
