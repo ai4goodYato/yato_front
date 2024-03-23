@@ -1,0 +1,224 @@
+/* 400px 미만일 때 세로 레이아웃 적용 */
+@media screen and (max-width: 600px) {
+    .background {
+        background: linear-gradient(180deg, #A1C4FD 0%, #BCE2FB 81%, #C2E9FB 100%);
+        max-width: 100vw;
+        min-height: 92vh;
+        padding: 15px;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .main-block {
+        background-color: white;
+        box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.35);
+        position: relative;
+        margin: 0 auto;
+        min-height: 560px;
+    }
+
+    .main-block-main {
+        /* min-width: 850px; */
+        max-width: 100vw;
+    }
+
+    .main-block-title {
+        width: 100%;
+        min-height: 40px;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        flex-direction: row;
+        padding: 10px 30px;
+    }
+
+    .main-block-title p {
+        font-size: 2.0rem;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .main-block-body {
+        /* width: 100%; */
+        /* height: 100%; */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+
+    }
+
+    .main-block-left {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .contour {
+        width: 90vw;
+        height: 1px;
+        border: 0.5px solid lightgray;
+        margin: 15px;
+    }
+
+    .main-block-right {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .preview-container {
+        position: relative;
+    }
+
+    .preview {
+        width: 80vw;
+        height: 80vw;
+        background-color: lightgray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .preview-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .preview-img-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    #medicineImg {
+        display: none;
+    }
+
+    .tab-content {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .background {
+        background: linear-gradient(180deg, #A1C4FD 0%, #BCE2FB 81%, #C2E9FB 100%);
+        min-width: 920px;
+        min-height: 92vh;
+        padding: 35px;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
+
+    .main-block {
+        background-color: white;
+        box-shadow: 0px 4px 50px rgba(0, 0, 0, 0.35);
+        position: relative;
+        margin: 0 auto;
+        min-height: 560px;
+        max-height: 620px;
+    }
+
+    .main-block-main {
+        /* min-width: 850px; */
+        max-width: 1000px;
+    }
+
+    .main-block-title {
+        width: 100%;
+        min-height: 50px;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        flex-direction: row;
+        padding: 15px 40px;
+    }
+
+    .main-block-title p {
+        font-size: 2.0rem;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .main-block-body {
+        /* width: 100%; */
+        /* height: 100%; */
+        display: flex;
+        flex-direction: row;
+        padding: 15px 30px;
+
+    }
+
+    .main-block-left {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .contour {
+        width: 1px;
+        height: 430px;
+        border: 0.5px solid lightgray;
+        margin: 15px;
+    }
+
+    .main-block-right {
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .preview-container {
+        position: relative;
+    }
+
+    .preview {
+        width: 100%;
+        height: 100%;
+        min-height: 450px;
+        background-color: lightgray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .preview-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .preview-img-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    #medicineImg {
+        display: none;
+    }
+
+    .tab-content {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
