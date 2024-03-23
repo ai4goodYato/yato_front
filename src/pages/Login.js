@@ -3,42 +3,40 @@ import axios from 'axios';
 import "./Login.css"
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
+import { signInWithEmail, signInWithGoogle, signUpWithEmail } from '../server/fbase';
+import { Button } from 'react-bootstrap';
+// import Button from '../components/Button';
 
 function LoginPage() {
+
+    const [email, setEmail] = useState("")
     // 상태 변수 설정: 사용자 이름과 비밀번호
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-    // 로그인 함수: 사용자 이름과 비밀번호 확인
-    const handleLogin = () => {
-        // 입력값이 비어 있는지 확인
-        if (!username || !password) {
+    const handleGoogleSignIn = () => {
+        signInWithGoogle();
+    }
+    const handleEmailSignIn = () => {
+        if (!email || !password) {
             setError('사용자 이름과 비밀번호를 모두 입력하세요.');
             return; // 입력값이 비어 있으면 함수를 여기서 종료
         }
 
         setLoading(true); // 요청 전 loading 상태를 true로 변경
 
-        // Axios를 사용하여 /login 엔드포인트로 POST 요청을 보냄
-        axios.post('/login', { username, password })
-            .then(response => {
-                setLoading(false); // 요청 완료 후 loading 상태를 false로 변경
-                if (response.data.success) {
-                    setIsLoggedIn(true);
-                    alert('로그인 성공!');
-                } else {
-                    alert('로그인 실패. 사용자 이름 또는 비밀번호를 확인하세요.');
-                }
-            })
-            .catch(error => {
-                setLoading(false); // 요청 완료 후 loading 상태를 false로 변경
-                console.error('로그인 요청 중 오류 발생:', error);
-                alert('로그인 요청 중 오류가 발생했습니다.');
-            });
-    };
+        signInWithEmail(email, password);
+    }
+    const handleEmailSignUp = () => {
+        // 이메일과 비밀번호를 사용하여 회원가입 시도
+        signUpWithEmail(email, password).catch((errorMessage) => {
+            setError(errorMessage);
+        });
+    }
 
     return (
         <div className='main-block main-block-login'>
@@ -55,9 +53,9 @@ function LoginPage() {
                                 {/* <FontAwesomeIcon icon={faUser} /> */}
                                 <input
                                     type="text"
-                                    id="username"
-                                    value={username}
-                                    onChange={(e) => setUsername(e.target.value)}
+                                    id="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     placeholder='로그인'
                                 />
                             </div>
@@ -71,9 +69,9 @@ function LoginPage() {
                                 />
                             </div>
                         </div>
-                        <button className="login-btn" type="button" onClick={handleLogin} disabled={loading}>
-                            {loading ? '로그인 중...' : '로그인'}
-                        </button>
+                        <button className="google-login" onClick={handleGoogleSignIn}/>
+                        <button className="login-btn" onClick={() => { handleEmailSignIn() }} children={"Email로 로그인"} disabled={loading}>{loading ? '로그인 중...' : 'Email로 로그인'}</button>
+                        <button className="login-btn" type="button" onClick={() => navigate("/signup")}>회원가입</button>
                         {error && <p style={{ color: 'red' }}>{error}</p>}
                     </form>
                 </div>

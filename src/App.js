@@ -12,6 +12,7 @@ function App() {
       <Header />
       <div className="background">
 
+
         <Routes>
           <Route path="/" element={<Background />} />
           <Route path="/login" element={<LoginPage />} />

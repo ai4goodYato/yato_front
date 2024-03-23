@@ -41,43 +41,49 @@ function SignupPage() {
     };
 
     return (
-        <div>
-            <h2>회원가입 페이지</h2>
-            <form>
+        <div className='main-block main-block-login'>
+            <div className="main-block-title">
+                <p>회원가입</p>
+            </div>
+            <form className='main-block-body-login'>
                 <div>
-                    <label htmlFor="email">이메일:</label>
+                    {/* <label htmlFor="email">이메일:</label> */}
                     <input
                         type="email"
                         id="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        placeholder='이메일'
                     />
                 </div>
                 <div>
-                    <label htmlFor="fullName">이름:</label>
+                    {/* <label htmlFor="fullName">이름:</label> */}
                     <input
                         type="text"
                         id="fullName"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
+                        placeholder='이름'
                     />
                 </div>
                 <div>
-                    <label htmlFor="password">비밀번호:</label>
+                    {/* <label htmlFor="password">비밀번호:</label> */}
                     <input
                         type="password"
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder='비밀번호'
                     />
                 </div>
                 <div>
-                    <label htmlFor="confirmPassword">비밀번호 확인:</label>
+                    {/* <label htmlFor="confirmPassword">비밀번호 확인:</label> */}
                     <input
                         type="password"
                         id="confirmPassword"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder='비밀번호 확인'
                     />
                 </div>
                 <button type="button" onClick={handleSignup} disabled={loading}>
