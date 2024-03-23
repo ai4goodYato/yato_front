@@ -26,10 +26,11 @@ function LoginPage() {
             setError('사용자 이름과 비밀번호를 모두 입력하세요.');
             return; // 입력값이 비어 있으면 함수를 여기서 종료
         }
+        else {
+            setLoading(true); // 요청 전 loading 상태를 true로 변경
 
-        setLoading(true); // 요청 전 loading 상태를 true로 변경
-
-        signInWithEmail(email, password);
+            signInWithEmail(email, password);
+        }
     }
     const handleEmailSignUp = () => {
         // 이메일과 비밀번호를 사용하여 회원가입 시도
@@ -50,7 +51,6 @@ function LoginPage() {
                     <form className='main-block-body-login'>
                         <div className='login-form'>
                             <div className='login-form1'>
-                                {/* <FontAwesomeIcon icon={faUser} /> */}
                                 <input
                                     type="text"
                                     id="email"
@@ -69,8 +69,8 @@ function LoginPage() {
                                 />
                             </div>
                         </div>
-                        <button className="google-login" onClick={handleGoogleSignIn}/>
-                        <button className="login-btn" onClick={() => { handleEmailSignIn() }} children={"Email로 로그인"} disabled={loading}>{loading ? '로그인 중...' : 'Email로 로그인'}</button>
+                        {/* <button className="google-login" onClick={handleGoogleSignIn} /> */}
+                        <button className="login-btn" onClick={handleEmailSignIn} children={"Email로 로그인"} disabled={loading}>{loading ? '로그인 중...' : 'Email로 로그인'}</button>
                         <button className="login-btn" type="button" onClick={() => navigate("/signup")}>회원가입</button>
                         {error && <p style={{ color: 'red' }}>{error}</p>}
                     </form>

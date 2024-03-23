@@ -86,7 +86,7 @@ function SignupPage() {
                         placeholder='비밀번호 확인'
                     />
                 </div>
-                <button type="button" onClick={handleSignup} disabled={loading}>
+                <button className="login-btn" type="button" onClick={handleSignup} disabled={loading}>
                     {loading ? '가입 중...' : '가입'}
                 </button>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
