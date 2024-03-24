@@ -1,0 +1,36 @@
+.main-donation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 15px 30px;
+}
+
+.main-donation-img {
+    width: 300px;
+    height: 300px;
+    margin: 50px 0 25px 0;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 300px; 
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.img1 {
+    background-image: url(../assets/나무1.webp);
+    background-size:contain;
+}
+.img2 {
+    background-image: url(../assets/나무2.webp);
+    background-size:contain;
+}
+.img3 {
+    background-image: url(../assets/나무3.webp);
+    background-size:contain;
+}
+.img4 {
+    background-image: url(../assets/나무4.webp);
+    background-size:contain;
+}

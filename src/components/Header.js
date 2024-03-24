@@ -23,6 +23,7 @@ function Header({ username, setUsername }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/donation">기부하기</Nav.Link>
+            <Nav.Link href="/myDrug">나의 약</Nav.Link>
             {
               !isLoggedIn
                 ? <><Nav.Link href="/login">로그인</Nav.Link>

@@ -6,6 +6,8 @@ import LoginPage from './pages/Login';
 import SignupPage from './pages/Signup';
 import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
+import Donation from './pages/Donation';
+import MyDrug from './pages/MyDrug';
 
 function App() {
   let [username, setUsername] = useState(false);
@@ -25,9 +27,8 @@ function App() {
             setUsername={setUsername} 
             />} />
           <Route path="/signup" element={<SignupPage />} />
-          {/* <Route path="/findPW" element={<FindPWPage />} />
-        <Route path="/myInfo" element={<MyInfo />} />
-        <Route path="/resetPW" element={<ResetPW />} /> */}
+          <Route path="/donation" element={<Donation />} />
+          <Route path="/myDrug" element={<MyDrug />} />
         </Routes>
       </div>
     </div>

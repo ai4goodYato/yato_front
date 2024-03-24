@@ -9,8 +9,10 @@ import { faImage } from "@fortawesome/free-solid-svg-icons";
 function Background() {
 
     let [imageSrc, setImageSrc] = useState('');
+    let [previewImg, setPreviewImg] = useState('');
     let [loading, setLoading] = useState(false);
-    let [data, setData] = useState(false)
+    let [data, setData] = useState(false);
+    let [imgData, setImgData] = useState('');
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -39,7 +41,7 @@ function Background() {
         reader.readAsDataURL(fileBlob);
         return new Promise((resolve, reject) => {
             reader.onload = () => {
-                setImageSrc(reader.result);
+                setPreviewImg(reader.result);
                 resolve();
             };
             reader.onerror = (error) => {
@@ -63,7 +65,9 @@ function Background() {
             })
                 .then((response) => {
                     console.log(response);
+                    setImgData(response.data);
                     setLoading(false);
+                    setData(true);
                 })
                 .catch((error) => {
                     console.error(error);
@@ -91,11 +95,14 @@ function Background() {
                         <MainBlockLeft
                             imageSrc={imageSrc}
                             setImageSrc={setImageSrc}
+                            previewImg={previewImg}
+                            setPreviewImg={setPreviewImg}
                             encodeFileToBase64={encodeFileToBase64}
                         />
                         <div className="contour"> </div>
                         <MainBlockRight
                             data={data}
+                            imgData={imgData}
                             handleClick={handleClick}
                             loading={loading}
                             postMedicine={postMedicine} />
@@ -106,19 +113,20 @@ function Background() {
     )
 }
 
-function MainBlockLeft({ imageSrc, setImageSrc, encodeFileToBase64 }) {
+function MainBlockLeft({ imageSrc, previewImg, setPreviewImg, setImageSrc, encodeFileToBase64 }) {
     return (
         <div className="main-block-left">
             <div>
                 {
-                    imageSrc
-                        ? <div className="preview-container"><img className="preview-img" src={imageSrc} alt="preview-img" />
-                            <CloseButton className="preview-img-close" onClick={() => { setImageSrc("") }} /></div>
+                    previewImg
+                        ? <div className="preview-container"><img className="preview-img" src={previewImg} alt="preview-img" />
+                            <CloseButton className="preview-img-close" onClick={() => { setPreviewImg("") }} /></div>
                         : <><label className="preview" htmlFor="medicineImg">
                             <FontAwesomeIcon icon={faImage} size="7x" />
                             <p>사 진 추 가</p></label>
                             <input id="medicineImg" type="file" onChange={(e) => {
                                 encodeFileToBase64(e.target.files[0]);
+                                setImageSrc(e.target.files[0]);
                             }} />
                         </>
                 }
@@ -128,7 +136,7 @@ function MainBlockLeft({ imageSrc, setImageSrc, encodeFileToBase64 }) {
     )
 }
 
-function MainBlockRight({ data, postMedicine, handleClick }) {
+function MainBlockRight({ imgData, data, postMedicine, handleClick }) {
     return (
         <div className="main-block-right">
 
@@ -144,44 +152,46 @@ function MainBlockRight({ data, postMedicine, handleClick }) {
                             <Tab className="tab-content" eventKey="home" title="약품정보">
                                 <MedicineData
                                     title="약품 정보"
-                                    entpName="삼성제약"
-                                    itemName="타이레놀"
-                                    useMethodQesitm="식후 30분"
-                                    depositMethodQesitm="1회 1정"
-                                    atpnQesitm="물과 함께 복용"
+                                    entpName={imgData[0].entpName}
+                                    itemName={imgData[0].itemName}
+                                    ingredient={imgData[0].ingredient}
+                                    useMethodQesitm={imgData[0].useMethodQesitm}
+                                    depositMethodQesitm={imgData[0].depositMethodQesitm}
+                                    atpnQesitm={imgData[0].atpnQesitm}
                                 />
                             </Tab>
                             <Tab className="tab-content" eventKey="profile" title="복용방법">
                                 <MedicineData
                                     title="복용 방법"
-                                    entpName="삼성제약"
-                                    itemName="타이레놀"
-                                    useMethodQesitm="식후 30분"
-                                    depositMethodQesitm="1회 1정"
-                                    atpnQesitm="물과 함께 복용"
+                                    entpName={imgData[0].entpName}
+                                    itemName={imgData[0].itemName}
+                                    ingredient={imgData[0].ingredient}
+                                    useMethodQesitm={imgData[0].useMethodQesitm}
+                                    depositMethodQesitm={imgData[0].depositMethodQesitm}
+                                    atpnQesitm={imgData[0].atpnQesitm}
                                 />
                             </Tab>
                             <Tab className="tab-content" eventKey="longer-tab" title="주의사항">
                                 <MedicineData
-                                    title="주의사항"
-                                    entpName="삼성제약"
-                                    itemName="타이레놀"
-                                    useMethodQesitm="식후 30분"
-                                    depositMethodQesitm="1회 1정"
-                                    atpnQesitm="물과 함께 복용"
+                                    title="주의 사항"
+                                    entpName={imgData[0].entpName}
+                                    itemName={imgData[0].itemName}
+                                    ingredient={imgData[0].ingredient}
+                                    useMethodQesitm={imgData[0].useMethodQesitm}
+                                    depositMethodQesitm={imgData[0].depositMethodQesitm}
+                                    atpnQesitm={imgData[0].atpnQesitm}
                                 />
                             </Tab>
                         </Tabs>
                         : <BeforeUpload />
                 }
-
             </div>
-            <button className="login-btn" onClick={() => { handleClick() }}>제 출</button>
+            <button className="login-btn" onClick={() => { postMedicine() }}>제 출</button>
         </div>
     )
 }
 
-function MedicineData({ title, entpName, itemName, useMethodQesitm, depositMethodQesitm, atpnQesitm }) {
+function MedicineData({ title, ingredient, entpName, itemName, useMethodQesitm, depositMethodQesitm, atpnQesitm }) {
     return (
         <div className="medicine-data-body">
             <h1>{title}</h1>
@@ -189,15 +199,16 @@ function MedicineData({ title, entpName, itemName, useMethodQesitm, depositMetho
                 <>
                     <p>제조사: {entpName}</p>
                     <p>약 이름: {itemName}</p>
+                    <p>성분: {ingredient}</p>
                 </>
             ) : title === "복용 방법" ? (
                 <>
-                    <p>복용 방법: {useMethodQesitm}</p>
-                    <p>투여 방법: {depositMethodQesitm}</p>
+                    <p>복용 방법:</p><p> {useMethodQesitm}</p>
+                    <p>투여 방법:</p><p> {depositMethodQesitm}</p>
                 </>
             ) : (
                 <>
-                    <p>주의사항: {atpnQesitm}</p>
+                    <p>주의사항:</p><p> {atpnQesitm}</p>
                 </>
             )
             }

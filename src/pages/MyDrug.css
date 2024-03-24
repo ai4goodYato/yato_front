@@ -1,0 +1,10 @@
+.mydrug {
+    width: 100vh;
+
+}
+.disNone {
+    display: none;
+}
+.plusDrug {
+    display: block;
+}
